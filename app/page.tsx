@@ -183,9 +183,24 @@ export default function Home() {
         )}
 
         {/* Footer */}
-        <p className="text-sm text-gray-400 text-center mt-4">
-          No actual alarm clocks were harmed
-        </p>
+        <div style={{ textAlign: "center", marginTop: 16 }}>
+          <p style={{ fontSize: 14, color: "#64748b", marginBottom: 8 }}>
+            No actual alarm clocks were harmed •
+            Developed by{" "}
+            <a
+              href="https://github.com/mortytheplatypus"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "#a855f7",
+                textDecoration: "none",
+                fontWeight: 600,
+              }}
+            >
+              mortytheplatypus
+            </a>
+          </p>
+        </div>
       </main>
 
     </div>
