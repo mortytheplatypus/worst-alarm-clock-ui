@@ -17,11 +17,13 @@ export default function AlarmDone({
     confirmedMinute,
     confirmedAmPm,
     onStartOver,
-    startOverButtonText = "Abar Kortam (PORTE BOSH(EN) BHAI!)"
+    startOverButtonText = "Abar Korte Chai (😏) "
 }: AlarmDoneProps) {
     const [timeRemaining, setTimeRemaining] = useState<{ hours: number; minutes: number; seconds: number } | null>(null);
     const [isAlarmTriggered, setIsAlarmTriggered] = useState(false);
     const [audioBlocked, setAudioBlocked] = useState(false);
+    const [showGetALifeBanner, setShowGetALifeBanner] = useState(false);
+    const [bannerCountdown, setBannerCountdown] = useState(3);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     // Initialize audio on mount
@@ -119,7 +121,23 @@ export default function AlarmDone({
             audioRef.current.currentTime = 0;
         }
         setIsAlarmTriggered(false);
-        onStartOver();
+        
+        // Show "Get a life" banner with countdown before resetting
+        setShowGetALifeBanner(true);
+        setBannerCountdown(3);
+        
+        let count = 3;
+        const countdownInterval = setInterval(() => {
+            count--;
+            setBannerCountdown(count);
+            
+            if (count <= 0) {
+                clearInterval(countdownInterval);
+                setShowGetALifeBanner(false);
+                setBannerCountdown(3);
+                onStartOver();
+            }
+        }, 1000);
     };
 
     return (
@@ -229,7 +247,7 @@ export default function AlarmDone({
                 textAlign: "center",
                 maxWidth: 600,
             }}>
-                bujhsi tor/apnar onek current je ei bhalo time e alarm set kora laglo.
+                onek current thakle tobei ei app use korar time and energy thake.
                 <br />
                 I&apos;m a bit concerned about you tbh.
             </p>
@@ -240,6 +258,54 @@ export default function AlarmDone({
             >
                 {startOverButtonText}
             </button>
+
+            {/* "Get a life" Banner */}
+            {showGetALifeBanner && (
+                <div
+                    style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: "rgba(0, 0, 0, 0.9)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        zIndex: 10000,
+                        animation: "bannerFadeIn 0.3s ease-out",
+                    }}
+                >
+                    <div
+                        style={{
+                            textAlign: "center",
+                            animation: "bannerPop 0.5s ease-out",
+                        }}
+                    >
+                        <p
+                            style={{
+                                fontSize: 72,
+                                fontWeight: 900,
+                                color: "#f472b6",
+                                textShadow: "0 0 60px rgba(244, 114, 182, 0.8)",
+                                marginBottom: 16,
+                            }}
+                        >
+                            Get a life 🙄
+                        </p>
+                        <p
+                            style={{
+                                fontSize: 24,
+                                fontWeight: 700,
+                                color: "#94a3b8",
+                                marginTop: 16,
+                            }}
+                        >
+                            shurute jaitesi in {bannerCountdown} second {bannerCountdown > 1 && "s"}
+                        </p>
+                    </div>
+                </div>
+            )}
 
             {/* Floating Alarm Alert */}
             {isAlarmTriggered && (
@@ -425,6 +491,25 @@ export default function AlarmDone({
           to {
             transform: scale(1.08);
             box-shadow: 0 6px 50px rgba(245, 158, 11, 0.9);
+          }
+        }
+        
+        @keyframes bannerFadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        
+        @keyframes bannerPop {
+          0% {
+            opacity: 0;
+            transform: scale(0.5);
+          }
+          50% {
+            transform: scale(1.1);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1);
           }
         }
       `}</style>

@@ -13,7 +13,7 @@ export default function AMPMChooser({
     confirmedHour,
     confirmedMinute,
     onConfirm,
-    confirmButtonText = "Accept Fate"
+    confirmButtonText = "Ho, eitai (🤔)"
 }: AMPMChooserProps) {
     const [isInitialLoad, setIsInitialLoad] = useState(true);
     const [isFlipping, setIsFlipping] = useState(false);
@@ -54,9 +54,9 @@ export default function AMPMChooser({
     };
 
     const getTossButtonText = () => {
-        if (isFlipping) return "🪙 Flipping...";
-        if (coinResult) return "🔄 Toss Again";
-        return "🪙 Toss Coin!";
+        if (isFlipping) return "🪙 Ghurtese...";
+        if (coinResult) return "🔄 Hoynai, abar toss";
+        return "🪙 Toss kore select kortam!";
     };
 
     return (
@@ -68,7 +68,7 @@ export default function AMPMChooser({
                 gap: 32,
                 padding: 40,
                 width: 600,
-                height: 540,
+                height: 560,
                 background: "linear-gradient(135deg, rgba(251, 146, 60, 0.15), rgba(168, 85, 247, 0.15))",
                 border: "2px solid rgba(251, 146, 60, 0.5)",
                 borderRadius: 24,
@@ -89,6 +89,7 @@ export default function AMPMChooser({
                     fontSize: 32,
                     fontWeight: 700,
                     color: "#fff",
+                    marginTop: 24,
                     marginBottom: 8,
                 }}>
                     AM or PM?
@@ -103,7 +104,7 @@ export default function AMPMChooser({
                     border: "1px solid #22c55e",
                     borderRadius: 12,
                     color: "#22c55e",
-                    fontSize: 16,
+                    fontSize: 24,
                 }}
             >
                 Time: <strong>{confirmedHour.toString().padStart(2, "0")}:{confirmedMinute.toString().padStart(2, "0")}</strong> — but AM or PM? 🤔
@@ -191,7 +192,7 @@ export default function AMPMChooser({
                         marginTop: 28
                     }}
                 >
-                    <p style={{ fontSize: 14, color: "#94a3b8", marginBottom: 4 }}>The coin has spoken!</p>
+                    <p style={{ fontSize: 14, color: "#94a3b8", marginBottom: 4 }}>Coin ghuira eita uthse</p>
                     <p style={{
                         fontSize: 28,
                         fontWeight: 800,
@@ -260,18 +261,18 @@ export default function AMPMChooser({
           font-size: 18px;
           font-weight: bold;
           color: #fff;
-          background: linear-gradient(135deg, #22c55e, #16a34a);
+          background: linear-gradient(135deg,rgb(21, 90, 46),rgb(10, 100, 43));
           border: none;
           border-radius: 12px;
           cursor: pointer;
           transition: all 0.2s ease;
-          box-shadow: 0 4px 25px rgba(34, 197, 94, 0.4);
+          box-shadow: 0 4px 25px rgba(23, 87, 46, 0.4);
           animation: fadeSlideIn 0.3s ease-out;
         }
         .confirm-ampm-btn:hover {
-          background: linear-gradient(135deg, #4ade80, #22c55e);
+          background: linear-gradient(135deg,rgb(23, 87, 46),rgb(7, 82, 35));
           transform: translateY(-2px);
-          box-shadow: 0 6px 30px rgba(34, 197, 94, 0.5);
+          box-shadow: 0 6px 30px rgba(23, 87, 46, 0.5);
         }
         .confirm-ampm-btn:active {
           transform: translateY(0);

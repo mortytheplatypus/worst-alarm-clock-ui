@@ -181,7 +181,7 @@ export default function Home() {
             confirmedHour={confirmedHour}
             confirmedMinute={confirmedMinute}
             onConfirm={handleAmPmConfirm}
-            confirmButtonText="Accept Fate"
+            confirmButtonText="Ho, eitai (🤔)"
           />
         )}
 
