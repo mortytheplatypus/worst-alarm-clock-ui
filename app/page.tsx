@@ -78,55 +78,68 @@ export default function Home() {
 
         {/* Step Indicator */}
         <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-          {["hour", "minute", "ampm", "done"].map((s, i) => {
-            const steps = ["hour", "minute", "ampm", "done"];
-            const currentStepIndex = steps.indexOf(step);
-            const isCurrentStep = step === s;
-            const isCompleted = currentStepIndex > i;
+          {(() => {
+            const allSteps = ["hour", "minute", "ampm", "done"];
+            const currentStepIndex = allSteps.indexOf(step);
+            const surpriseRevealed = currentStepIndex >= 2; // Show all 4 steps only when on ampm or done
+            
+            // Before surprise: show only hour, minute, done (as steps 1, 2, 3)
+            // After surprise: show all 4 steps
+            const visibleSteps = surpriseRevealed 
+              ? allSteps 
+              : ["hour", "minute", "done"];
+            
+            return visibleSteps.map((s, i) => {
+              const actualIndex = allSteps.indexOf(s);
+              const isCurrentStep = step === s;
+              const isCompleted = currentStepIndex > actualIndex;
+              const displayNumber = i + 1;
+              const isLastStep = i === visibleSteps.length - 1;
 
-            let bgColor = "rgba(255,255,255,0.1)";
-            if (isCurrentStep) {
-              bgColor = "linear-gradient(135deg, #a855f7, #7c3aed)";
-            } else if (isCompleted) {
-              bgColor = "#22c55e";
-            }
+              let bgColor = "rgba(255,255,255,0.1)";
+              if (isCurrentStep) {
+                bgColor = "linear-gradient(135deg, #a855f7, #7c3aed)";
+              } else if (isCompleted) {
+                bgColor = "#22c55e";
+              }
 
-            const textColor = isCurrentStep || isCompleted ? "#fff" : "#64748b";
-            const lineColor = isCompleted ? "#22c55e" : "rgba(255,255,255,0.1)";
+              const textColor = isCurrentStep || isCompleted ? "#fff" : "#64748b";
+              const lineColor = isCompleted ? "#22c55e" : "rgba(255,255,255,0.1)";
 
-            return (
-              <div key={s} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <div
-                  style={{
-                    width: 32,
-                    height: 32,
-                    borderRadius: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 14,
-                    fontWeight: 600,
-                    background: bgColor,
-                    color: textColor,
-                    boxShadow: isCurrentStep ? "0 0 20px rgba(168, 85, 247, 0.5)" : "none",
-                    transition: "all 0.3s ease",
-                  }}
-                >
-                  {isCompleted ? "✓" : i + 1}
-                </div>
-                {i < 3 && (
+              return (
+                <div key={s} style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <div
                     style={{
-                      width: 40,
-                      height: 2,
-                      background: lineColor,
+                      width: 32,
+                      height: 32,
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: 14,
+                      fontWeight: 600,
+                      background: bgColor,
+                      color: textColor,
+                      boxShadow: isCurrentStep ? "0 0 20px rgba(168, 85, 247, 0.5)" : "none",
                       transition: "all 0.3s ease",
                     }}
-                  />
-                )}
-              </div>
-            );
-          })}
+                  >
+                    {isCompleted ? "✓" : displayNumber}
+                  </div>
+                  {!isLastStep && (
+                    <div
+                      style={{
+                        width: 40,
+                        height: 2,
+                        background: lineColor,
+                        transition: "all 0.3s ease",
+                      }}
+                    />
+                  )}
+                </div>
+              );
+            });
+          })()}
         </div>
 
         {/* Step 1: Hour Picker */}

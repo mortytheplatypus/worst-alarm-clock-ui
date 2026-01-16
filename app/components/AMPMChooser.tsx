@@ -211,6 +211,13 @@ export default function AMPMChooser({
                     style={{
                         opacity: isFlipping ? 0.5 : 1,
                         cursor: isFlipping ? "not-allowed" : "pointer",
+                        // Bigger button for first toss
+                        ...(coinResult === null && !isFlipping ? {
+                            padding: "22px 52px",
+                            fontSize: 24,
+                            borderRadius: 16,
+                            marginTop: 48,
+                        } : {}),
                     }}
                 >
                     {getTossButtonText()}
