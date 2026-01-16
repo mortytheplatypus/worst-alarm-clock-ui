@@ -65,31 +65,33 @@ export default function AMPMChooser({
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                gap: 32,
-                padding: 40,
-                width: 600,
-                height: 560,
+                gap: "clamp(16px, 4vw, 32px)",
+                padding: "clamp(20px, 4vw, 40px)",
+                width: "100%",
+                maxWidth: 600,
+                minHeight: "auto",
                 background: "linear-gradient(135deg, rgba(251, 146, 60, 0.15), rgba(168, 85, 247, 0.15))",
                 border: "2px solid rgba(251, 146, 60, 0.5)",
-                borderRadius: 24,
+                borderRadius: "clamp(16px, 3vw, 24px)",
                 boxShadow: "0 0 40px rgba(251, 146, 60, 0.2)",
+                boxSizing: "border-box",
             }}
         >
             <div style={{ textAlign: "center" }}>
                 <p style={{
-                    fontSize: 14,
+                    fontSize: "clamp(11px, 2vw, 14px)",
                     color: "#fb923c",
                     textTransform: "uppercase",
-                    letterSpacing: 3,
+                    letterSpacing: "clamp(1px, 0.4vw, 3px)",
                     marginBottom: 8,
                 }}>
                     🎰 Surprise MF 🎰
                 </p>
                 <h2 style={{
-                    fontSize: 32,
+                    fontSize: "clamp(22px, 5vw, 32px)",
                     fontWeight: 700,
                     color: "#fff",
-                    marginTop: 24,
+                    marginTop: "clamp(12px, 3vw, 24px)",
                     marginBottom: 8,
                 }}>
                     AM or PM?
@@ -99,12 +101,13 @@ export default function AMPMChooser({
             {/* Selected time display */}
             <div
                 style={{
-                    padding: "12px 24px",
+                    padding: "clamp(8px, 2vw, 12px) clamp(12px, 3vw, 24px)",
                     background: "rgba(34, 197, 94, 0.2)",
                     border: "1px solid #22c55e",
                     borderRadius: 12,
                     color: "#22c55e",
-                    fontSize: 24,
+                    fontSize: "clamp(14px, 3vw, 24px)",
+                    textAlign: "center",
                 }}
             >
                 Time: <strong>{confirmedHour.toString().padStart(2, "0")}:{confirmedMinute.toString().padStart(2, "0")}</strong> — but AM or PM? 🤔
@@ -113,10 +116,9 @@ export default function AMPMChooser({
             {/* The Coin - only shown during flipping */}
             {!isInitialLoad && isFlipping && (
                 <div
+                    className="coin-container"
                     style={{
                         perspective: "1000px",
-                        width: 150,
-                        height: 150,
                     }}
                 >
                     <div
@@ -132,6 +134,7 @@ export default function AMPMChooser({
                     >
                         {/* AM Side (Heads) */}
                         <div
+                            className="coin-face"
                             style={{
                                 position: "absolute",
                                 width: "100%",
@@ -141,18 +144,18 @@ export default function AMPMChooser({
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                                fontSize: 36,
                                 fontWeight: 800,
                                 background: "linear-gradient(135deg, #fbbf24, #f59e0b)",
                                 color: "#78350f",
                                 boxShadow: "0 0 30px rgba(251, 191, 36, 0.5), inset 0 -4px 10px rgba(0,0,0,0.2)",
-                                border: "4px solid #fcd34d",
+                                border: "3px solid #fcd34d",
                             }}
                         >
                             ☀️ AM
                         </div>
                         {/* PM Side (Tails) */}
                         <div
+                            className="coin-face"
                             style={{
                                 position: "absolute",
                                 width: "100%",
@@ -163,12 +166,11 @@ export default function AMPMChooser({
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                                fontSize: 36,
                                 fontWeight: 800,
                                 background: "linear-gradient(135deg, #6366f1, #4f46e5)",
                                 color: "#e0e7ff",
                                 boxShadow: "0 0 30px rgba(99, 102, 241, 0.5), inset 0 -4px 10px rgba(0,0,0,0.2)",
-                                border: "4px solid #818cf8",
+                                border: "3px solid #818cf8",
                             }}
                         >
                             🌙 PM
@@ -181,20 +183,20 @@ export default function AMPMChooser({
             {coinResult && !isFlipping && (
                 <div
                     style={{
-                        padding: "16px 32px",
+                        padding: "clamp(12px, 2vw, 16px) clamp(20px, 4vw, 32px)",
                         background: coinResult === "AM"
                             ? "linear-gradient(135deg, rgba(251, 191, 36, 0.3), rgba(245, 158, 11, 0.1))"
                             : "linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(79, 70, 229, 0.1))",
                         border: `2px solid ${coinResult === "AM" ? "#fbbf24" : "#6366f1"}`,
-                        borderRadius: 16,
+                        borderRadius: "clamp(12px, 2vw, 16px)",
                         textAlign: "center",
                         animation: "resultPop 0.3s ease-out",
-                        marginTop: 28
+                        marginTop: "clamp(16px, 3vw, 28px)"
                     }}
                 >
-                    <p style={{ fontSize: 14, color: "#94a3b8", marginBottom: 4 }}>Coin ghuira eita uthse</p>
+                    <p style={{ fontSize: "clamp(12px, 2vw, 14px)", color: "#94a3b8", marginBottom: 4 }}>Coin ghuira eita uthse</p>
                     <p style={{
-                        fontSize: 28,
+                        fontSize: "clamp(20px, 4vw, 28px)",
                         fontWeight: 800,
                         color: coinResult === "AM" ? "#fbbf24" : "#818cf8",
                     }}>
@@ -204,21 +206,14 @@ export default function AMPMChooser({
             )}
 
             {/* Buttons */}
-            <div style={{ display: "flex", gap: 32, flexWrap: "wrap", justifyContent: "center", marginTop: 32 }}>
+            <div style={{ display: "flex", gap: "clamp(12px, 3vw, 32px)", flexWrap: "wrap", justifyContent: "center", marginTop: "clamp(16px, 4vw, 32px)", width: "100%" }}>
                 <button
                     onClick={handleCoinToss}
                     disabled={isFlipping}
-                    className="coin-toss-btn"
+                    className={coinResult === null && !isFlipping ? "coin-toss-btn coin-toss-btn-first" : "coin-toss-btn"}
                     style={{
                         opacity: isFlipping ? 0.5 : 1,
                         cursor: isFlipping ? "not-allowed" : "pointer",
-                        // Bigger button for first toss
-                        ...(coinResult === null && !isFlipping ? {
-                            padding: "22px 52px",
-                            fontSize: 24,
-                            borderRadius: 16,
-                            marginTop: 48,
-                        } : {}),
                     }}
                 >
                     {getTossButtonText()}
@@ -235,9 +230,16 @@ export default function AMPMChooser({
             </div>
 
             <style>{`
+        .coin-container {
+          width: clamp(100px, 20vw, 150px);
+          height: clamp(100px, 20vw, 150px);
+        }
+        .coin-face {
+          font-size: clamp(24px, 5vw, 36px);
+        }
         .coin-toss-btn {
-          padding: 16px 32px;
-          font-size: 18px;
+          padding: clamp(12px, 2vw, 16px) clamp(20px, 4vw, 32px);
+          font-size: clamp(14px, 2.5vw, 18px);
           font-weight: bold;
           color: #fff;
           background: linear-gradient(135deg,rgb(107, 57, 10),rgb(87, 79, 12));
@@ -246,6 +248,14 @@ export default function AMPMChooser({
           cursor: pointer;
           transition: all 0.2s ease;
           box-shadow: 0 4px 25px rgba(107, 57, 10, 0.4);
+          flex: 1;
+          min-width: fit-content;
+        }
+        .coin-toss-btn-first {
+          padding: clamp(16px, 3vw, 22px) clamp(32px, 6vw, 52px);
+          font-size: clamp(16px, 3vw, 24px);
+          border-radius: 16px;
+          margin-top: clamp(24px, 6vw, 48px);
         }
         .coin-toss-btn:hover:not(:disabled) {
           background: linear-gradient(135deg, rgb(140, 80, 20), rgb(107, 57, 10));
@@ -257,8 +267,8 @@ export default function AMPMChooser({
         }
         
         .confirm-ampm-btn {
-          padding: 16px 32px;
-          font-size: 18px;
+          padding: clamp(12px, 2vw, 16px) clamp(20px, 4vw, 32px);
+          font-size: clamp(14px, 2.5vw, 18px);
           font-weight: bold;
           color: #fff;
           background: linear-gradient(135deg,rgb(21, 90, 46),rgb(10, 100, 43));
@@ -268,6 +278,8 @@ export default function AMPMChooser({
           transition: all 0.2s ease;
           box-shadow: 0 4px 25px rgba(23, 87, 46, 0.4);
           animation: fadeSlideIn 0.3s ease-out;
+          flex: 1;
+          min-width: fit-content;
         }
         .confirm-ampm-btn:hover {
           background: linear-gradient(135deg,rgb(23, 87, 46),rgb(7, 82, 35));

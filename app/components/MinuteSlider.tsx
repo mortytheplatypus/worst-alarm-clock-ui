@@ -37,7 +37,7 @@ export default function MinuteSlider({ onConfirm, confirmButtonText = "Confirm M
   const isLocked = confirmedMinute !== null;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16, width: 500 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "clamp(12px, 2vw, 16px)", width: "100%", maxWidth: 500, boxSizing: "border-box" }}>
       {/* Label */}
       <div style={{
         display: "flex",
@@ -46,11 +46,11 @@ export default function MinuteSlider({ onConfirm, confirmButtonText = "Confirm M
         padding: "0 4px"
       }}>
         <span style={{
-          fontSize: 18,
+          fontSize: "clamp(14px, 2.5vw, 18px)",
           fontWeight: 600,
           color: "#06b6d4",
           textTransform: "uppercase",
-          letterSpacing: 2,
+          letterSpacing: "clamp(1px, 0.3vw, 2px)",
         }}>
           Step 2: Guess(??) the Minute
         </span>
@@ -61,10 +61,10 @@ export default function MinuteSlider({ onConfirm, confirmButtonText = "Confirm M
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: 20,
-          padding: 24,
+          gap: "clamp(12px, 3vw, 20px)",
+          padding: "clamp(16px, 3vw, 24px)",
           border: isLocked ? "3px solid #22c55e" : "3px solid #06b6d4",
-          borderRadius: 16,
+          borderRadius: "clamp(12px, 2vw, 16px)",
           background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
           boxShadow: isLocked
             ? "0 0 30px rgba(34, 197, 94, 0.3), inset 0 0 60px rgba(34, 197, 94, 0.1)"
@@ -75,7 +75,7 @@ export default function MinuteSlider({ onConfirm, confirmButtonText = "Confirm M
         {/* Display */}
         <div
           style={{
-            fontSize: 72,
+            fontSize: "clamp(48px, 12vw, 72px)",
             fontWeight: "bold",
             color: isLocked ? "#22c55e" : "#06b6d4",
             textAlign: "center",
@@ -100,7 +100,7 @@ export default function MinuteSlider({ onConfirm, confirmButtonText = "Confirm M
             disabled={isLocked}
             style={{
               width: "100%",
-              height: 24,
+              height: "clamp(20px, 3vw, 24px)",
               cursor: isLocked ? "default" : "grab",
               accentColor: isLocked ? "#22c55e" : "#06b6d4",
               opacity: isLocked ? 0.5 : 1,
@@ -112,10 +112,10 @@ export default function MinuteSlider({ onConfirm, confirmButtonText = "Confirm M
         {isLocked && (
           <div style={{
             textAlign: "center",
-            padding: "8px 16px",
+            padding: "clamp(6px, 1vw, 8px) clamp(12px, 2vw, 16px)",
             background: "rgba(34, 197, 94, 0.2)",
             borderRadius: 8,
-            fontSize: 14,
+            fontSize: "clamp(12px, 2vw, 14px)",
             fontWeight: 600,
             color: "#22c55e",
           }}>
@@ -135,8 +135,8 @@ export default function MinuteSlider({ onConfirm, confirmButtonText = "Confirm M
 
       <style>{`
         .minute-btn {
-          padding: 14px 40px;
-          font-size: 18px;
+          padding: clamp(10px, 2vw, 14px) clamp(20px, 4vw, 40px);
+          font-size: clamp(14px, 2.5vw, 18px);
           font-weight: bold;
           color: #fff;
           background: linear-gradient(135deg, #0891b2, #0e7490);
@@ -145,6 +145,7 @@ export default function MinuteSlider({ onConfirm, confirmButtonText = "Confirm M
           cursor: pointer;
           transition: all 0.2s ease;
           box-shadow: 0 4px 20px rgba(8, 145, 178, 0.4);
+          width: 100%;
         }
         .minute-btn:hover {
           background: linear-gradient(135deg, #06b6d4, #0891b2);
@@ -155,8 +156,8 @@ export default function MinuteSlider({ onConfirm, confirmButtonText = "Confirm M
           transform: translateY(-1px);
         }
         .minute-btn-disabled {
-          padding: 14px 40px;
-          font-size: 18px;
+          padding: clamp(10px, 2vw, 14px) clamp(20px, 4vw, 40px);
+          font-size: clamp(14px, 2.5vw, 18px);
           font-weight: bold;
           color: #fff;
           background: linear-gradient(135deg, #374151, #4b5563);
@@ -164,6 +165,7 @@ export default function MinuteSlider({ onConfirm, confirmButtonText = "Confirm M
           border-radius: 12px;
           cursor: default;
           transition: all 0.2s ease;
+          width: 100%;
         }
       `}</style>
     </div>

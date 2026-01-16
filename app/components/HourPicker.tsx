@@ -1,30 +1,28 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface NumberPosition {
   number: number;
-  x: number;
-  y: number;
+  x: number; // percentage-based x position (0-100)
+  y: number; // percentage-based y position (0-100)
 }
 
-const BOX_WIDTH = 1000;
-const BOX_HEIGHT = 480;
-const NUMBER_SIZE = 72;        // approximate size of each number element
-const MIN_DISTANCE = 120;      // minimum distance between number centers
-const PADDING = 20;            // padding from box edges
 const SHUFFLE_INTERVAL = 2000; // shuffle every 2 seconds
 
+// Generate positions as percentages for responsive scaling
 function generateRandomPositions(): NumberPosition[] {
   const positions: NumberPosition[] = [];
   const numbers = Array.from({ length: 12 }, (_, i) => i + 1);
+  
+  const PADDING_PCT = 3;  // percentage padding from edges
+  const BUTTON_PCT = 18;  // approximate button size as percentage
+  const MIN_DISTANCE_PCT = 20; // minimum distance between centers as percentage
 
-  // Strict bounds: number buttons must be FULLY inside the box
-  // Position is top-left corner, so button extends from (x,y) to (x+NUMBER_SIZE, y+NUMBER_SIZE)
-  const minX = PADDING;
-  const maxX = BOX_WIDTH - NUMBER_SIZE - PADDING;
-  const minY = PADDING + 5; // Extra for countdown bar
-  const maxY = BOX_HEIGHT - NUMBER_SIZE - PADDING;
+  const minX = PADDING_PCT;
+  const maxX = 100 - BUTTON_PCT - PADDING_PCT;
+  const minY = PADDING_PCT + 2; // Extra for countdown bar
+  const maxY = 100 - BUTTON_PCT - PADDING_PCT;
 
   for (const num of numbers) {
     let attempts = 0;
@@ -38,7 +36,7 @@ function generateRandomPositions(): NumberPosition[] {
       const tooClose = positions.some((pos) => {
         const dx = Math.abs(pos.x - x);
         const dy = Math.abs(pos.y - y);
-        return dx < MIN_DISTANCE && dy < MIN_DISTANCE;
+        return dx < MIN_DISTANCE_PCT && dy < MIN_DISTANCE_PCT;
       });
 
       if (!tooClose) {
@@ -68,6 +66,7 @@ export default function HourPicker({ onConfirm, confirmButtonText = "Confirm Hou
   const [positions, setPositions] = useState<NumberPosition[]>([]);
   const [selectedHour, setSelectedHour] = useState<number | null>(null);
   const [confirmedHour, setConfirmedHour] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setPositions(generateRandomPositions());
@@ -97,7 +96,7 @@ export default function HourPicker({ onConfirm, confirmButtonText = "Confirm Hou
   const isLocked = confirmedHour !== null;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "clamp(12px, 2vw, 16px)", width: "100%", maxWidth: 1000, padding: "0 8px", boxSizing: "border-box" }}>
       {/* Label */}
       <div style={{
         display: "flex",
@@ -106,11 +105,11 @@ export default function HourPicker({ onConfirm, confirmButtonText = "Confirm Hou
         padding: "0 4px"
       }}>
         <span style={{
-          fontSize: 18,
+          fontSize: "clamp(14px, 2.5vw, 18px)",
           fontWeight: 600,
           color: "#a855f7",
           textTransform: "uppercase",
-          letterSpacing: 2,
+          letterSpacing: "clamp(1px, 0.3vw, 2px)",
         }}>
           Step 1: Hunt(!!) the Hour
         </span>
@@ -118,13 +117,15 @@ export default function HourPicker({ onConfirm, confirmButtonText = "Confirm Hou
 
       {/* Main box */}
       <div
+        ref={containerRef}
+        className="hour-picker-container"
         style={{
           position: "relative",
-          width: BOX_WIDTH,
-          height: BOX_HEIGHT,
-          padding: PADDING,
+          width: "100%",
+          aspectRatio: "16 / 9",
+          maxHeight: "min(480px, 60vh)",
           border: isLocked ? "3px solid #22c55e" : "3px solid #a855f7",
-          borderRadius: 16,
+          borderRadius: "clamp(12px, 2vw, 16px)",
           background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
           overflow: "hidden",
           boxShadow: isLocked
@@ -160,7 +161,7 @@ export default function HourPicker({ onConfirm, confirmButtonText = "Confirm Hou
 
           if (isConfirmed) {
             buttonColor = "#000";
-            buttonBorder = "4px solid #22c55e";
+            buttonBorder = "3px solid #22c55e";
             buttonBg = "#22c55e";
             buttonShadow = "0 0 20px rgba(34, 197, 94, 0.6)";
           } else if (isSelected) {
@@ -178,16 +179,14 @@ export default function HourPicker({ onConfirm, confirmButtonText = "Confirm Hou
               key={pos.number}
               onClick={() => !isLocked && handleSelect(pos.number)}
               disabled={isLocked}
+              className="hour-number-btn"
               style={{
                 position: "absolute",
-                left: pos.x,
-                top: pos.y,
-                width: NUMBER_SIZE,
-                height: NUMBER_SIZE,
+                left: `${pos.x}%`,
+                top: `${pos.y}%`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: 36,
                 fontWeight: "bold",
                 color: buttonColor,
                 cursor: isLocked ? "default" : "pointer",
@@ -211,12 +210,12 @@ export default function HourPicker({ onConfirm, confirmButtonText = "Confirm Hou
         {isLocked && (
           <div style={{
             position: "absolute",
-            bottom: 16,
-            right: 16,
-            padding: "8px 16px",
+            bottom: "clamp(8px, 2vw, 16px)",
+            right: "clamp(8px, 2vw, 16px)",
+            padding: "clamp(6px, 1vw, 8px) clamp(10px, 2vw, 16px)",
             background: "rgba(34, 197, 94, 0.9)",
             borderRadius: 8,
-            fontSize: 14,
+            fontSize: "clamp(11px, 1.8vw, 14px)",
             fontWeight: 600,
             color: "#000",
           }}>
@@ -243,9 +242,14 @@ export default function HourPicker({ onConfirm, confirmButtonText = "Confirm Hou
           0%, 100% { opacity: 1; }
           50% { opacity: 0.5; }
         }
+        .hour-number-btn {
+          width: clamp(40px, 10vw, 72px);
+          height: clamp(40px, 10vw, 72px);
+          font-size: clamp(18px, 4vw, 36px);
+        }
         .hour-btn {
-          padding: 14px 40px;
-          font-size: 18px;
+          padding: clamp(10px, 2vw, 14px) clamp(20px, 4vw, 40px);
+          font-size: clamp(14px, 2.5vw, 18px);
           font-weight: bold;
           color: #fff;
           background: linear-gradient(135deg, #7c3aed, #6d28d9);
@@ -254,6 +258,9 @@ export default function HourPicker({ onConfirm, confirmButtonText = "Confirm Hou
           cursor: pointer;
           transition: all 0.2s ease;
           box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+          width: 100%;
+          max-width: 500px;
+          align-self: center;
         }
         .hour-btn:hover {
           background: linear-gradient(135deg, #a855f7, #7c3aed);
@@ -264,8 +271,8 @@ export default function HourPicker({ onConfirm, confirmButtonText = "Confirm Hou
           transform: translateY(-1px);
         }
         .hour-btn-disabled {
-          padding: 14px 40px;
-          font-size: 18px;
+          padding: clamp(10px, 2vw, 14px) clamp(20px, 4vw, 40px);
+          font-size: clamp(14px, 2.5vw, 18px);
           font-weight: bold;
           color: #fff;
           background: linear-gradient(135deg, #374151, #4b5563);
@@ -273,6 +280,16 @@ export default function HourPicker({ onConfirm, confirmButtonText = "Confirm Hou
           border-radius: 12px;
           cursor: default;
           transition: all 0.2s ease;
+          width: 100%;
+          max-width: 500px;
+          align-self: center;
+        }
+        @media (max-width: 480px) {
+          .hour-number-btn {
+            width: 36px;
+            height: 36px;
+            font-size: 16px;
+          }
         }
       `}</style>
     </div>

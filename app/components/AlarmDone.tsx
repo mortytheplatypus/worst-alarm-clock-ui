@@ -146,27 +146,30 @@ export default function AlarmDone({
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                gap: 32,
-                padding: 40,
+                gap: "clamp(16px, 4vw, 32px)",
+                padding: "clamp(20px, 4vw, 40px)",
                 background: "linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.05))",
                 border: "3px solid #22c55e",
-                borderRadius: 24,
+                borderRadius: "clamp(16px, 3vw, 24px)",
                 boxShadow: "0 0 60px rgba(34, 197, 94, 0.3)",
+                width: "100%",
+                maxWidth: 600,
+                boxSizing: "border-box",
             }}
         >
             <div style={{ textAlign: "center" }}>
                 <p style={{
-                    fontSize: 18,
+                    fontSize: "clamp(14px, 2.5vw, 18px)",
                     color: "#22c55e",
                     textTransform: "uppercase",
-                    letterSpacing: 3,
-                    marginBottom: 16,
+                    letterSpacing: "clamp(1px, 0.4vw, 3px)",
+                    marginBottom: "clamp(8px, 2vw, 16px)",
                 }}>
                     Alarm Set For
                 </p>
                 <p
                     style={{
-                        fontSize: 72,
+                        fontSize: "clamp(36px, 10vw, 72px)",
                         fontWeight: 800,
                         fontFamily: "monospace",
                         color: "#22c55e",
@@ -182,26 +185,28 @@ export default function AlarmDone({
             {timeRemaining && (
                 <div
                     style={{
-                        padding: "24px 40px",
+                        padding: "clamp(16px, 3vw, 24px) clamp(20px, 4vw, 40px)",
                         background: "linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.1))",
                         border: "2px solid #06b6d4",
-                        borderRadius: 16,
+                        borderRadius: "clamp(12px, 2vw, 16px)",
                         textAlign: "center",
+                        width: "100%",
+                        boxSizing: "border-box",
                     }}
                 >
                     <p style={{
-                        fontSize: 14,
+                        fontSize: "clamp(11px, 2vw, 14px)",
                         color: "#67e8f9",
                         textTransform: "uppercase",
-                        letterSpacing: 2,
-                        marginBottom: 12,
+                        letterSpacing: "clamp(1px, 0.3vw, 2px)",
+                        marginBottom: "clamp(8px, 1.5vw, 12px)",
                     }}>
                         ⏰ Aar Baki Ache
                     </p>
-                    <div style={{ display: "flex", gap: 16, justifyContent: "center", alignItems: "baseline" }}>
+                    <div style={{ display: "flex", gap: "clamp(8px, 2vw, 16px)", justifyContent: "center", alignItems: "baseline", flexWrap: "wrap" }}>
                         <div style={{ textAlign: "center" }}>
                             <span style={{
-                                fontSize: 48,
+                                fontSize: "clamp(28px, 7vw, 48px)",
                                 fontWeight: 800,
                                 fontFamily: "monospace",
                                 color: "#22d3ee",
@@ -209,12 +214,12 @@ export default function AlarmDone({
                             }}>
                                 {timeRemaining.hours.toString().padStart(2, "0")}
                             </span>
-                            <p style={{ fontSize: 12, color: "#67e8f9", marginTop: 4 }}>HOURS</p>
+                            <p style={{ fontSize: "clamp(9px, 1.5vw, 12px)", color: "#67e8f9", marginTop: 4 }}>HOURS</p>
                         </div>
-                        <span style={{ fontSize: 48, color: "#22d3ee", fontWeight: 300 }}>:</span>
+                        <span style={{ fontSize: "clamp(28px, 7vw, 48px)", color: "#22d3ee", fontWeight: 300 }}>:</span>
                         <div style={{ textAlign: "center" }}>
                             <span style={{
-                                fontSize: 48,
+                                fontSize: "clamp(28px, 7vw, 48px)",
                                 fontWeight: 800,
                                 fontFamily: "monospace",
                                 color: "#22d3ee",
@@ -222,12 +227,12 @@ export default function AlarmDone({
                             }}>
                                 {timeRemaining.minutes.toString().padStart(2, "0")}
                             </span>
-                            <p style={{ fontSize: 12, color: "#67e8f9", marginTop: 4 }}>MINS</p>
+                            <p style={{ fontSize: "clamp(9px, 1.5vw, 12px)", color: "#67e8f9", marginTop: 4 }}>MINS</p>
                         </div>
-                        <span style={{ fontSize: 48, color: "#22d3ee", fontWeight: 300 }}>:</span>
+                        <span style={{ fontSize: "clamp(28px, 7vw, 48px)", color: "#22d3ee", fontWeight: 300 }}>:</span>
                         <div style={{ textAlign: "center" }}>
                             <span style={{
-                                fontSize: 48,
+                                fontSize: "clamp(28px, 7vw, 48px)",
                                 fontWeight: 800,
                                 fontFamily: "monospace",
                                 color: "#22d3ee",
@@ -235,17 +240,18 @@ export default function AlarmDone({
                             }}>
                                 {timeRemaining.seconds.toString().padStart(2, "0")}
                             </span>
-                            <p style={{ fontSize: 12, color: "#67e8f9", marginTop: 4 }}>SECS</p>
+                            <p style={{ fontSize: "clamp(9px, 1.5vw, 12px)", color: "#67e8f9", marginTop: 4 }}>SECS</p>
                         </div>
                     </div>
                 </div>
             )}
 
             <p style={{
-                fontSize: 18,
+                fontSize: "clamp(14px, 2.5vw, 18px)",
                 color: "#a3e635",
                 textAlign: "center",
                 maxWidth: 600,
+                padding: "0 8px",
             }}>
                 onek current thakle tobei ei app use korar time and energy thake.
                 <br />
@@ -274,6 +280,8 @@ export default function AlarmDone({
                         justifyContent: "center",
                         zIndex: 10000,
                         animation: "bannerFadeIn 0.3s ease-out",
+                        padding: "20px",
+                        boxSizing: "border-box",
                     }}
                 >
                     <div
@@ -284,7 +292,7 @@ export default function AlarmDone({
                     >
                         <p
                             style={{
-                                fontSize: 72,
+                                fontSize: "clamp(36px, 12vw, 72px)",
                                 fontWeight: 900,
                                 color: "#f472b6",
                                 textShadow: "0 0 60px rgba(244, 114, 182, 0.8)",
@@ -295,7 +303,7 @@ export default function AlarmDone({
                         </p>
                         <p
                             style={{
-                                fontSize: 24,
+                                fontSize: "clamp(16px, 4vw, 24px)",
                                 fontWeight: 700,
                                 color: "#94a3b8",
                                 marginTop: 16,
@@ -337,8 +345,8 @@ export default function AlarmDone({
 
             <style>{`
         .start-over-btn {
-          padding: 18px 56px;
-          font-size: 20px;
+          padding: clamp(12px, 2.5vw, 18px) clamp(32px, 7vw, 56px);
+          font-size: clamp(16px, 2.5vw, 20px);
           font-weight: bold;
           color: #fff;
           background: linear-gradient(135deg, #b91c1c, #991b1b);
@@ -347,6 +355,8 @@ export default function AlarmDone({
           cursor: pointer;
           transition: all 0.2s ease;
           box-shadow: 0 4px 30px rgba(185, 28, 28, 0.5);
+          width: 100%;
+          max-width: 400px;
         }
         .start-over-btn:hover {
           background: linear-gradient(135deg, #dc2626, #b91c1c);
@@ -369,23 +379,27 @@ export default function AlarmDone({
           justify-content: center;
           z-index: 9999;
           animation: overlayFadeIn 0.3s ease-out;
+          padding: 16px;
+          box-sizing: border-box;
         }
         
         .alarm-floating-container {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 24px;
-          padding: 48px 64px;
+          gap: clamp(16px, 3vw, 24px);
+          padding: clamp(24px, 5vw, 48px) clamp(20px, 5vw, 64px);
           background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.2));
           border: 4px solid #ef4444;
-          border-radius: 32px;
+          border-radius: clamp(20px, 4vw, 32px);
           box-shadow: 0 0 100px rgba(239, 68, 68, 0.6), 0 0 200px rgba(239, 68, 68, 0.3);
           animation: containerPulse 0.5s ease-in-out infinite alternate, floatBounce 2s ease-in-out infinite;
+          max-width: 95vw;
+          box-sizing: border-box;
         }
         
         .alarm-text {
-          font-size: 56px;
+          font-size: clamp(22px, 7vw, 56px);
           font-weight: 900;
           color: #fef2f2;
           text-shadow: 0 0 40px rgba(239, 68, 68, 1), 0 0 80px rgba(239, 68, 68, 0.8);
@@ -394,14 +408,15 @@ export default function AlarmDone({
         }
         
         .alarm-subtext {
-          font-size: 24px;
+          font-size: clamp(16px, 3vw, 24px);
           color: #fca5a5;
           animation: subtextBlink 0.8s ease-in-out infinite;
+          text-align: center;
         }
         
         .enable-audio-btn {
-          padding: 16px 40px;
-          font-size: 22px;
+          padding: clamp(12px, 2vw, 16px) clamp(24px, 5vw, 40px);
+          font-size: clamp(16px, 3vw, 22px);
           font-weight: bold;
           color: #fff;
           background: linear-gradient(135deg, #f59e0b, #d97706);
@@ -411,6 +426,8 @@ export default function AlarmDone({
           transition: all 0.2s ease;
           box-shadow: 0 4px 30px rgba(245, 158, 11, 0.5);
           animation: audioButtonPulse 0.5s ease-in-out infinite alternate;
+          width: 100%;
+          max-width: 350px;
         }
         .enable-audio-btn:hover {
           background: linear-gradient(135deg, #fbbf24, #f59e0b);
@@ -419,8 +436,8 @@ export default function AlarmDone({
         }
         
         .dismiss-btn {
-          padding: 20px 48px;
-          font-size: 20px;
+          padding: clamp(14px, 2.5vw, 20px) clamp(28px, 6vw, 48px);
+          font-size: clamp(16px, 2.5vw, 20px);
           font-weight: bold;
           color: #fff;
           background: linear-gradient(135deg, #dc2626, #b91c1c);
@@ -430,6 +447,8 @@ export default function AlarmDone({
           transition: all 0.2s ease;
           box-shadow: 0 4px 30px rgba(220, 38, 38, 0.5);
           animation: buttonGlow 1s ease-in-out infinite alternate;
+          width: 100%;
+          max-width: 350px;
         }
         .dismiss-btn:hover {
           background: linear-gradient(135deg, #ef4444, #dc2626);

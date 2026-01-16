@@ -43,7 +43,7 @@ export default function Home() {
       style={{
         minHeight: "100vh",
         background: "linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%)",
-        padding: "40px 20px",
+        padding: "clamp(16px, 4vw, 40px) clamp(12px, 3vw, 20px)",
       }}
     >
       <main
@@ -53,14 +53,15 @@ export default function Home() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 32,
+          gap: "clamp(16px, 4vw, 32px)",
+          width: "100%",
         }}
       >
         {/* Header */}
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center", padding: "0 8px" }}>
           <h1
             style={{
-              fontSize: 42,
+              fontSize: "clamp(22px, 5vw, 42px)",
               fontWeight: 800,
               background: "linear-gradient(135deg, #f97316, #eab308, #22c55e, #06b6d4, #a855f7)",
               backgroundClip: "text",
@@ -71,13 +72,13 @@ export default function Home() {
           >
             Worst Alarm Clock UI BCF 2026
           </h1>
-          <p style={{ fontSize: 16, color: "#64748b" }}>
+          <p style={{ fontSize: "clamp(12px, 2.5vw, 16px)", color: "#64748b" }}>
             ek ambulance bhej dena, bhayankar komedi hogaya idhar
           </p>
         </div>
 
         {/* Step Indicator */}
-        <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
+        <div style={{ display: "flex", gap: "clamp(8px, 2vw, 16px)", alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
           {(() => {
             const allSteps = ["hour", "minute", "ampm", "done"];
             const currentStepIndex = allSteps.indexOf(step);
@@ -107,16 +108,16 @@ export default function Home() {
               const lineColor = isCompleted ? "#22c55e" : "rgba(255,255,255,0.1)";
 
               return (
-                <div key={s} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div key={s} style={{ display: "flex", alignItems: "center", gap: "clamp(4px, 1vw, 8px)" }}>
                   <div
                     style={{
-                      width: 32,
-                      height: 32,
+                      width: "clamp(24px, 5vw, 32px)",
+                      height: "clamp(24px, 5vw, 32px)",
                       borderRadius: "50%",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      fontSize: 14,
+                      fontSize: "clamp(10px, 2vw, 14px)",
                       fontWeight: 600,
                       background: bgColor,
                       color: textColor,
@@ -129,7 +130,7 @@ export default function Home() {
                   {!isLastStep && (
                     <div
                       style={{
-                        width: 40,
+                        width: "clamp(20px, 4vw, 40px)",
                         height: 2,
                         background: lineColor,
                         transition: "all 0.3s ease",
@@ -153,15 +154,15 @@ export default function Home() {
 
         {/* Step 2: Minute Slider */}
         {step === "minute" && (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, width: "100%", maxWidth: 500, padding: "0 12px", boxSizing: "border-box" }}>
             <div
               style={{
-                padding: "12px 24px",
+                padding: "clamp(8px, 2vw, 12px) clamp(16px, 3vw, 24px)",
                 background: "rgba(34, 197, 94, 0.2)",
                 border: "1px solid #22c55e",
                 borderRadius: 12,
                 color: "#22c55e",
-                fontSize: 16,
+                fontSize: "clamp(14px, 2.5vw, 16px)",
               }}
             >
               Hour selected: <strong>{confirmedHour}</strong>
